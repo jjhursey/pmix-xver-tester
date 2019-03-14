@@ -67,7 +67,7 @@ git pull
 echo ""
 echo "============ Checking builds"
 echo ""
-echo ./xversion.py --basedir=$HOME/scratch \
+./xversion.py --basedir=$HOME/scratch \
               --with-hwloc=${HWLOC_INSTALL_PATH} \
               --with-hwloc1=${HWLOC1_INSTALL_PATH} \
               --with-libevent=${LIBEVENT_INSTALL_PATH} \
