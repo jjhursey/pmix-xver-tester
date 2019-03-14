@@ -65,6 +65,7 @@ ADD --chown=pmixer:pmixer xversion.py /home/pmixer/pmix-tests/crossversion/
 # Build full set of versions
 # -----------------------------
 RUN mkdir -p /home/pmixer/scratch
+COPY .build-timestamp /home/pmixer/
 RUN cd /home/pmixer/pmix-tests/crossversion && \
     ./xversion.py --basedir=$HOME/scratch \
          --with-hwloc=${HWLOC_INSTALL_PATH} \
