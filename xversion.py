@@ -215,14 +215,14 @@ def run_test(bld_server, bld_client):
     server_build_dir   = pmix_build_dir + "/" + bld_server.build_base_dir
 
     os.chdir(server_build_dir + "/test/simple")
+    cmd = ["./simptest", "-n", "2", "-e", client_build_dir + "/test/simple/simpclient"];
 
     print("============ PMIx Run  : Run simptest")
     print("Client " + client_build_dir + "/test/simple/simpclient")
+    print("Server " + os.getcwd() )
+    print("Command: "+ " ".join(cmd))
     with open(result_file, 'w') as logfile:
-        ret = subprocess.call(["./simptest",
-                               "-n", "2",
-                               "-e", client_build_dir + "/test/simple/simpclient"],
-                               stdout=logfile, stderr=logfile, shell=False)
+        ret = subprocess.call(cmd, stdout=logfile, stderr=subprocess.STDOUT, shell=True)
         print("RETURNED " + str(ret))
         if 0 != ret:
             os.chdir(orig_dir)

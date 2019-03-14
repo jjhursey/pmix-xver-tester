@@ -62,12 +62,6 @@ ADD --chown=pmixer:pmixer xversion.py /home/pmixer/pmix-tests/crossversion/
 
 
 # -----------------------------
-# Add scripts directory
-# -----------------------------
-ADD --chown=pmixer:pmixer bin /home/pmixer/bin
-
-
-# -----------------------------
 # Build full set of versions
 # -----------------------------
 RUN mkdir -p /home/pmixer/scratch
@@ -77,6 +71,12 @@ RUN cd /home/pmixer/pmix-tests/crossversion && \
          --with-hwloc1=${HWLOC1_INSTALL_PATH} \
          --with-libevent=${LIBEVENT_INSTALL_PATH} \
          -r -q
+
+
+# -----------------------------
+# Add scripts directory
+# -----------------------------
+ADD --chown=pmixer:pmixer bin /home/pmixer/bin
 
 # -----------------------------
 # Entrypoint
