@@ -28,7 +28,7 @@ To compare the current release branches (and `master`) to each other simply run:
 
 ```
 docker pull jjhursey/pmix-xver-tester
-docker run pmix-xver-tester
+docker run jjhursey/pmix-xver-tester
 ```
 
 
@@ -37,7 +37,7 @@ docker run pmix-xver-tester
 To compare the baseline against a topic branch run (make sure to use the `https` repo address):
 
 ```
-docker run pmix-xver-tester /home/pmixer/bin/run-xversion.sh \
+docker run jjhursey/pmix-xver-tester /home/pmixer/bin/run-xversion.sh \
        --repo https://github.com/USERNAME/pmix.git --branch my-topic-branch
 ```
 
@@ -47,6 +47,6 @@ docker run pmix-xver-tester /home/pmixer/bin/run-xversion.sh \
 To compare the baseline against a local build directory just volume mount it in, and use the `--path` option to point to the location inside the container.
 
 ```
-docker run -v $PWD/my-local-branch:/home/pmixer/my-branch pmix-xver-tester \
+docker run -v $PWD/my-local-branch:/home/pmixer/my-branch jjhursey/pmix-xver-tester \
        /home/pmixer/bin/run-xversion.sh --path /home/pmixer/my-branch
 ```
