@@ -54,18 +54,22 @@ RUN cd /home/pmixer/local/src && \
 
 
 # -----------------------------
+# Allow forced rebuild from this point
+# -----------------------------
+COPY .build-timestamp /home/pmixer/
+
+
+# -----------------------------
 # Checkout the pmix-tests repo
 # -----------------------------
 RUN cd /home/pmixer && \
     git clone https://github.com/pmix/pmix-tests
-ADD --chown=pmixer:pmixer xversion.py /home/pmixer/pmix-tests/crossversion/
 
 
 # -----------------------------
 # Build full set of versions
 # -----------------------------
 RUN mkdir -p /home/pmixer/scratch
-COPY .build-timestamp /home/pmixer/
 RUN cd /home/pmixer/pmix-tests/crossversion && \
     ./xversion.py --basedir=$HOME/scratch \
          --with-hwloc=${HWLOC_INSTALL_PATH} \
