@@ -10,7 +10,7 @@ TAG=${TAG:-":latest"}
 # Check container to see if there are repos that require rebuild
 #
 set +e
-docker run jjhursey/pmix-xver-tester${TAG} /home/pmixer/bin/check-for-updates.py
+docker run --rm jjhursey/pmix-xver-tester${TAG} /home/pmixer/bin/check-for-updates.py
 NUM_REBUILD=$?
 set -e
 if [ 0 == $NUM_REBUILD ] ; then
