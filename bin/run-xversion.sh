@@ -3,6 +3,7 @@
 script_name="run-xversion.sh"
 
 ADDITIONAL_OPTIONS=""
+ADDITIONAL_RUN_OPTIONS=""
 
 trepo=""
 tbranch=""
@@ -47,6 +48,11 @@ while [[ $# -gt 0 ]] ; do
             tpath=$1
             ADDITIONAL_OPTIONS+=" --with-src $tpath"
             ;;
+        "--")
+            shift
+            ADDITIONAL_RUN_OPTIONS+=" "$@
+            break
+            ;;
         *)
             printf "Unkonwn option: %s\n" $1
             exit 1
@@ -60,7 +66,15 @@ if [[ "x$trepo" != "x" && "x$tbranch" == "x" || "x$trepo" == "x" && "x$tbranch" 
     exit 1
 fi
 
+echo ""
+echo "============ Run Options"
+echo ""
+echo "General : "$ADDITIONAL_OPTIONS
+echo "Run Only: "$ADDITIONAL_RUN_OPTIONS
 
+echo ""
+echo "============ Update test repo"
+echo ""
 cd $HOME/pmix-tests/crossversion/
 git pull
 
@@ -80,4 +94,4 @@ echo ""
               --with-hwloc=${HWLOC_INSTALL_PATH} \
               --with-hwloc1=${HWLOC1_INSTALL_PATH} \
               --with-libevent=${LIBEVENT_INSTALL_PATH} \
-              ${ADDITIONAL_OPTIONS} -b -q
+              ${ADDITIONAL_OPTIONS} ${ADDITIONAL_RUN_OPTIONS} -b -q
