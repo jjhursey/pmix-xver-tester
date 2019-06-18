@@ -32,4 +32,15 @@ time docker build -t jjhursey/pmix-xver-tester${TAG} .
 #
 docker push jjhursey/pmix-xver-tester${TAG}
 
+#
+# Push change so DockerHub rebuilds the x86 image
+#
+_IS_CHANGED=`git status | grep -B5 modified | wc -l`
+if [ $_IS_CHANGED -gt 0 ] ; then
+    git add .build-timestamp
+    git commit -m "(auto) Update image based on github changes"
+    git push
+    echo "=========== Success"
+fi
+
 exit 0
