@@ -28,7 +28,7 @@ To compare the current release branches (and `master`) to each other simply run:
 
 ```
 docker pull jjhursey/pmix-xver-tester
-docker run jjhursey/pmix-xver-tester
+docker run --rm jjhursey/pmix-xver-tester
 ```
 
 
@@ -37,7 +37,7 @@ docker run jjhursey/pmix-xver-tester
 To compare the baseline against a topic branch run (make sure to use the `https` repo address):
 
 ```
-docker run jjhursey/pmix-xver-tester /home/pmixer/bin/run-xversion.sh \
+docker run --rm jjhursey/pmix-xver-tester /home/pmixer/bin/run-xversion.sh \
        --repo https://github.com/USERNAME/pmix.git --branch my-topic-branch
 ```
 
@@ -47,6 +47,56 @@ docker run jjhursey/pmix-xver-tester /home/pmixer/bin/run-xversion.sh \
 To compare the baseline against a local build directory just volume mount it in, and use the `--path` option to point to the location inside the container.
 
 ```
-docker run -v $PWD/my-local-branch:/home/pmixer/my-branch jjhursey/pmix-xver-tester \
+docker run --rm -v $PWD/my-local-branch:/home/pmixer/my-branch jjhursey/pmix-xver-tester \
        /home/pmixer/bin/run-xversion.sh --path /home/pmixer/my-branch
+```
+
+
+## PMIx CI
+
+All of the CI tests will perform a build check before running to make sure the internal reference branches are up to date.
+
+
+### PMIx `Cross-version` CI test
+
+This CI test runs the following:
+
+```
+docker run --rm -v $PWD/my-local-branch:/home/pmixer/my-branch jjhursey/pmix-xver-tester \
+       /home/pmixer/bin/run-xversion.sh --path /home/pmixer/my-branch -- --skip-tool
+```
+
+If you do not want to run with your own branch you can use:
+```
+docker run --rm jjhursey/pmix-xver-tester /home/pmixer/bin/run-xversion.sh -- --skip-tool
+```
+
+
+### PMIx `Cross-version: Tool` CI test
+
+This CI test runs the following:
+
+```
+docker run --rm -v $PWD/my-local-branch:/home/pmixer/my-branch jjhursey/pmix-xver-tester \
+       /home/pmixer/bin/run-xversion.sh --path /home/pmixer/my-branch -- --skip-client
+```
+
+If you do not want to run with your own branch you can use:
+```
+docker run --rm jjhursey/pmix-xver-tester /home/pmixer/bin/run-xversion.sh -- --skip-client
+```
+
+
+### PMIx `Cross-version: make check` CI test
+
+This CI test runs the following:
+
+```
+docker run --rm -v $PWD/my-local-branch:/home/pmixer/my-branch jjhursey/pmix-xver-tester \
+       /home/pmixer/bin/run-xversion.sh --path /home/pmixer/my-branch -- --skip-client --skip-tool --make-check
+```
+
+If you do not want to run with your own branch you can use:
+```
+docker run --rm jjhursey/pmix-xver-tester /home/pmixer/bin/run-xversion.sh -- --skip-client --skip-tool --make-check
 ```
