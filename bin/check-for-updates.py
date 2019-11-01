@@ -96,7 +96,11 @@ def check_tree(bld, logfile=None):
                 print("Log:\n"+sio)
                 return 0
 
-    os.chdir(local_build_dir)
+        os.chdir(orig_dir)
+    else:
+        print("Skip: No local install present for this version.")
+        return 1
+
     return 0
 
 if __name__ == "__main__":
