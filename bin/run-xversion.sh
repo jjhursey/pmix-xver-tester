@@ -76,7 +76,9 @@ echo ""
 echo "============ Update test repo"
 echo ""
 cd $HOME/pmix-tests/crossversion/
+set +e
 git pull
+set -e
 
 echo ""
 echo "============ Checking builds"
