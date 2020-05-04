@@ -3,11 +3,14 @@ FROM centos:7
 LABEL maintainer="jjhursey@open-mpi.org"
 
 RUN yum -y update && \
+    yum -y install epel-release && \
     yum -y install \
         gcc gcc-gfortran gcc-c++ \
         binutils less wget which sudo make file \
         wget git autoconf automake libtool flex \
-        perl-Data-Dumper bzip2 && \
+        perl-Data-Dumper bzip2 \
+        pandoc python3 man \
+ && \
     yum clean all
 
 # -----------------------------
