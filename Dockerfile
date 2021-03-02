@@ -28,6 +28,7 @@ RUN yum -y update && \
         perl-Data-Dumper bzip2 \
         pandoc python3 man \
         Cython python3-devel \
+        zlib-devel \
  && \
     yum clean all
 
