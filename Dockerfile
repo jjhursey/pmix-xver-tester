@@ -27,7 +27,7 @@ RUN yum -y update && \
         wget git autoconf automake libtool flex \
         perl-Data-Dumper bzip2 \
         pandoc python3 man \
-        Cython python3-devel \
+        python3-devel \
         zlib-devel \
  && \
     yum clean all
@@ -45,6 +45,7 @@ ENV AUTOMAKE_JOBS=20
 # Cython
 # -----------------------------
 RUN pip3 install --user Cython
+ENV PYTHONPATH=/home/pmixer/.local/lib/python3.6/site-packages
 
 # -----------------------------
 # Install libevent and hwloc (both 2.x and 1.x)
