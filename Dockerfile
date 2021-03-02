@@ -1,7 +1,24 @@
+# ------------------------------------------------------------
+# OS: Centos 7
+# ------------------------------------------------------------
 FROM centos:7
 
+# ------------------------------------------------------------
+# Metadata
+# ------------------------------------------------------------
 LABEL maintainer="jjhursey@open-mpi.org"
 
+ARG LIBEVENT_INSTALL_PATH=/home/pmixer/local/libevent
+ARG HWLOC1_INSTALL_PATH=/home/pmixer/local/hwloc-1x
+ARG HWLOC_INSTALL_PATH=/home/pmixer/local/hwloc
+
+LABEL com.ibm.hwloc.version=2.4.0
+LABEL com.ibm.hwloc1.version=1.11.13
+LABEL com.ibm.libevent.version=2.4.0
+
+# ------------------------------------------------------------
+# Install required packages
+# ------------------------------------------------------------
 RUN yum -y update && \
     yum -y install epel-release && \
     yum -y install \
@@ -10,6 +27,7 @@ RUN yum -y update && \
         wget git autoconf automake libtool flex \
         perl-Data-Dumper bzip2 \
         pandoc python3 man \
+        Cython python3-devel \
  && \
     yum clean all
 
@@ -20,6 +38,12 @@ RUN groupadd -r pmixer && useradd --no-log-init -r -m -b /home -g pmixer pmixer
 USER pmixer
 WORKDIR /home/pmixer
 
+ENV AUTOMAKE_JOBS=20
+
+# -----------------------------
+# Cython
+# -----------------------------
+RUN pip3 install --user Cython
 
 # -----------------------------
 # Install libevent and hwloc (both 2.x and 1.x)
@@ -27,11 +51,8 @@ WORKDIR /home/pmixer
 RUN mkdir -p /home/pmixer/local
 ADD --chown=pmixer:pmixer src /home/pmixer/local/src
 
-ARG LIBEVENT_INSTALL_PATH=/home/pmixer/local/libevent
 ENV LIBEVENT_INSTALL_PATH=$LIBEVENT_INSTALL_PATH
-ARG HWLOC1_INSTALL_PATH=/home/pmixer/local/hwloc-1x
 ENV HWLOC1_INSTALL_PATH=$HWLOC1_INSTALL_PATH
-ARG HWLOC_INSTALL_PATH=/home/pmixer/local/hwloc
 ENV HWLOC_INSTALL_PATH=$HWLOC_INSTALL_PATH
 
 RUN cd /home/pmixer/local/src && \
