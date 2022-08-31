@@ -31,7 +31,7 @@ RUN yum -y update && \
         binutils less wget which make file \
         wget git autoconf automake libtool \
         perl perl-Data-Dumper \
-        bzip2 \
+        bzip2 diffutils \
         python3 \
         python3-devel \
         zlib-devel \
