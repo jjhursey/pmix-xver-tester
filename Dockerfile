@@ -129,11 +129,8 @@ COPY .build-timestamp /home/pmixer/
 # -----------------------------
 # Checkout the pmix-tests repo
 # -----------------------------
-#RUN cd /home/pmixer && \
-#    git clone https://github.com/pmix/pmix-tests
 RUN cd /home/pmixer && \
-    ls && \
-    git clone -b py3-fix https://github.com/jjhursey/pmix-tests
+    git clone https://github.com/pmix/pmix-tests
 
 # -----------------------------
 # Build full set of versions
