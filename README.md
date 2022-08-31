@@ -21,6 +21,11 @@ compatability you may want to make a persistent container, and rerun the script
 within the same container. This will prevent an older Docker image from rebuilding
 the release installs everytime you run the container.
 
+### Build the container
+
+```
+docker build -t jjhursey/pmix-xver-tester -f Dockerfile .
+```
 
 ### Run baseline cross-version compatability
 
